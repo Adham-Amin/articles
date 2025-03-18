@@ -1,6 +1,6 @@
-import 'package:articles/Core/utils/app_styles.dart';
+
 import 'package:articles/Features/home/presentation/widgets/articles_list.dart';
-import 'package:articles/Features/home/presentation/widgets/categories_list.dart';
+import 'package:articles/Features/home/presentation/widgets/categories_section.dart';
 import 'package:flutter/material.dart';
 
 class HomeViewBody extends StatelessWidget {
@@ -10,24 +10,9 @@ class HomeViewBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomScrollView(
       slivers: [
-        SliverToBoxAdapter(
-          child: Column(
-            children: [
-              CategoriesList(),
-              SizedBox(
-                height: 16,
-              ),
-              Text(
-                'Top Headlines',
-                style: AppStyles.textBlod24,
-              ),
-            ],
-          ),
-        ),
+        CategoriesSection(),
         ArticlesList(),
       ],
     );
   }
 }
-
-
