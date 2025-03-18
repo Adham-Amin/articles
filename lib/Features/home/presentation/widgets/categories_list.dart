@@ -1,4 +1,4 @@
-import 'package:articles/Features/home/data/category_model.dart';
+import 'package:articles/Features/home/data/models/category_model.dart';
 import 'package:articles/Features/home/presentation/widgets/category_item.dart';
 import 'package:flutter/material.dart';
 
