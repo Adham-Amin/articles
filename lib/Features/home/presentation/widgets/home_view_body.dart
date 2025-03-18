@@ -1,5 +1,5 @@
 import 'package:articles/Core/utils/app_styles.dart';
-import 'package:articles/Features/home/presentation/widgets/article_item.dart';
+import 'package:articles/Features/home/presentation/widgets/articles_list.dart';
 import 'package:articles/Features/home/presentation/widgets/categories_list.dart';
 import 'package:flutter/material.dart';
 
@@ -24,19 +24,10 @@ class HomeViewBody extends StatelessWidget {
             ],
           ),
         ),
-        SliverList.builder(
-          itemCount: 10,
-          itemBuilder: (context, index) => Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            child: ArticleItem(),
-          ),
-        ),
+        ArticlesList(),
       ],
     );
   }
 }
-
-
-
 
 
