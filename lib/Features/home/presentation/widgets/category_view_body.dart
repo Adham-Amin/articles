@@ -7,24 +7,30 @@ class CategoryViewBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-          child: Row(
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: Column(
+        children: [
+          SizedBox(
+            height: 16,
+          ),
+          Row(
             children: [
               SearchTextField(),
               CustomFilter(),
             ],
           ),
-        ),
-        Expanded(
-          child: ListView.builder(
-            itemCount: 10,
-            itemBuilder: (context, index) => Container(color: Colors.red, height: 200,),
+          SizedBox(
+            height: 16,
           ),
-        ),
-      ],
+          Expanded(
+            child: ListView.builder(
+              itemCount: 10,
+              itemBuilder: (context, index) => Container(color: Colors.red, height: 200,),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

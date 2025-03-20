@@ -4,4 +4,5 @@ import 'package:dartz/dartz.dart';
 
 abstract class HomeRepo {
   Future<Either<Failure, List<ArticleModel>>> fetchArticles();
+  Future<Either<Failure, List<ArticleModel>>> fetchArticlesByCategory({required String category});
 }
