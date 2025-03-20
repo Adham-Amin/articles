@@ -1,7 +1,9 @@
 import 'package:articles/Core/utils/app_colors.dart';
+import 'package:articles/Core/utils/app_router.dart';
 import 'package:articles/Core/utils/app_styles.dart';
 import 'package:articles/Features/home/data/models/category_model.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class CategoryItem extends StatelessWidget {
   const CategoryItem({super.key, required this.category});
@@ -11,7 +13,9 @@ class CategoryItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        GoRouter.of(context).push(AppRouter.categoryView, extra: category.name);
+      },
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 4),
         child: AspectRatio(
