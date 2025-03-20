@@ -32,7 +32,7 @@ class HomeRepoImpl implements HomeRepo {
   }
   
   @override
-  Future<Either<Failure, List<ArticleModel>>> fetchArticlesByCategory({required String category}) async {
+  Future<Either<Failure, List<ArticleModel>>> fetchCategoryArticle({required String category}) async {
     try {
       Map<String, dynamic> data = await apiService.get(
           endPoint: '/top-headlines?apiKey=$_apiKey&category=$category');
