@@ -1,7 +1,7 @@
 import 'package:articles/Core/widgets/custom_error.dart';
 import 'package:articles/Core/widgets/custom_loading.dart';
 import 'package:articles/Features/home/presentation/manager/aticles_cubit/fetch_articles_cubit.dart';
-import 'package:articles/Features/home/presentation/widgets/article_item.dart';
+import 'package:articles/Core/widgets/article_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

@@ -1,11 +1,13 @@
 import 'package:articles/Features/home/presentation/views/category_view.dart';
 import 'package:articles/Features/home/presentation/views/home_view.dart';
+import 'package:articles/Features/search/presentation/views/search_view.dart';
 import 'package:articles/Features/splash/presentation/views/splash_view.dart';
 import 'package:go_router/go_router.dart';
 
 abstract class AppRouter {
   static const String homeView = '/homeView';
   static const String categoryView = '/categoryView';
+  static const String searchView = '/searchView';
   static final GoRouter router = GoRouter(
     routes: [
       GoRoute(
@@ -26,6 +28,12 @@ abstract class AppRouter {
           return CategoryView(
             categoryName: state.extra as String,
           );
+        },
+      ),
+      GoRoute(
+        path: searchView,
+        builder: (context, state) {
+          return SearchView();
         },
       ),
     ],

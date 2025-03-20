@@ -1,28 +1,15 @@
+import 'package:articles/Core/utils/app_styles.dart';
+import 'package:articles/Core/widgets/category_articles.dart';
 import 'package:articles/Core/widgets/custom_error.dart';
 import 'package:articles/Core/widgets/custom_loading.dart';
-import 'package:articles/Features/home/presentation/manager/category_article_cubit/category_articles_cubit.dart';
-import 'package:articles/Core/widgets/category_articles.dart';
-import 'package:articles/Features/home/presentation/widgets/custom_filter.dart';
 import 'package:articles/Core/widgets/search_text_field.dart';
+import 'package:articles/Features/home/presentation/widgets/custom_filter.dart';
+import 'package:articles/Features/search/presentation/manager/cubit/search_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class CategoryViewBody extends StatefulWidget {
-  const CategoryViewBody({super.key, required this.category});
-
-  final String category;
-
-  @override
-  State<CategoryViewBody> createState() => _CategoryViewBodyState();
-}
-
-class _CategoryViewBodyState extends State<CategoryViewBody> {
-  @override
-  void initState() {
-    super.initState();
-    BlocProvider.of<CategoryArticlesCubit>(context)
-        .fetchCategoryArticle(category: widget.category);
-  }
+class SearchViewBody extends StatelessWidget {
+  const SearchViewBody({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -37,11 +24,8 @@ class _CategoryViewBodyState extends State<CategoryViewBody> {
             children: [
               SearchTextField(
                 onChanged: (value) {
-                  BlocProvider.of<CategoryArticlesCubit>(context)
-                      .fetchCategoryArticleByQuery(
-                    category: widget.category,
-                    search: value,
-                  );
+                  BlocProvider.of<SearchCubit>(context)
+                      .fetchArticles(search: value);
                 },
               ),
               CustomFilter(),
@@ -50,19 +34,26 @@ class _CategoryViewBodyState extends State<CategoryViewBody> {
           SizedBox(
             height: 16,
           ),
-          BlocBuilder<CategoryArticlesCubit, CategoryArticlesState>(
+          BlocBuilder<SearchCubit, SearchState>(
             builder: (context, state) {
-              if (state is CategoryArticlesLoaded) {
+              if (state is SearchLoaded) {
                 return CategoryArticle(
                   articles: state.articles,
                 );
-              } else if (state is CategoryArticlesFailure) {
+              } else if (state is SearchFailure) {
                 return Expanded(
                   child: CustomError(title: state.errMessage),
                 );
+              } else if (state is SearchLoading) {
+                return Expanded(child: CustomLoading());
               } else {
                 return Expanded(
-                  child: CustomLoading(),
+                  child: Center(
+                    child: Text(
+                      'Search Now',
+                      style: AppStyles.textNormal14,
+                    ),
+                  ),
                 );
               }
             },
