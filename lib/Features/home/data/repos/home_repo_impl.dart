@@ -51,4 +51,25 @@ class HomeRepoImpl implements HomeRepo {
       }
     }
   }
+  
+  @override
+  Future<Either<Failure, List<ArticleModel>>> fetchCategoryArticleByQuery({required String category, required String q}) async {
+    try {
+      Map<String, dynamic> data = await apiService.get(
+          endPoint: '/top-headlines?apiKey=$_apiKey&category=$category&q=$q');
+
+      List<ArticleModel> articles = [];
+      for (var article in data['articles']) {
+        articles.add(ArticleModel.fromJson(article));
+      }
+
+      return right(articles);
+    } catch (e) {
+      if (e is DioException) {
+        return left(ServerFailure.fromDioException(e));
+      } else {
+        return left(ServerFailure(e.toString()));
+      }
+    }
+  }
 }

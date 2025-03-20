@@ -1,10 +1,6 @@
-import 'package:articles/Core/models/article_model.dart';
-import 'package:articles/Core/utils/app_colors.dart';
-import 'package:articles/Core/utils/app_styles.dart';
 import 'package:articles/Core/widgets/custom_error.dart';
 import 'package:articles/Core/widgets/custom_loading.dart';
 import 'package:articles/Features/home/presentation/manager/category_article_cubit/category_articles_cubit.dart';
-import 'package:articles/Features/home/presentation/widgets/article_item.dart';
 import 'package:articles/Features/home/presentation/widgets/category_articles.dart';
 import 'package:articles/Features/home/presentation/widgets/custom_filter.dart';
 import 'package:articles/Features/home/presentation/widgets/search_text_field.dart';
@@ -39,7 +35,7 @@ class _CategoryViewBodyState extends State<CategoryViewBody> {
           ),
           Row(
             children: [
-              SearchTextField(),
+              SearchTextField(category: widget.category),
               CustomFilter(),
             ],
           ),
