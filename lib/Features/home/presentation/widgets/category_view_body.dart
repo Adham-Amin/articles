@@ -1,9 +1,32 @@
+import 'package:articles/Core/models/article_model.dart';
 import 'package:articles/Core/utils/app_colors.dart';
 import 'package:articles/Core/utils/app_styles.dart';
+import 'package:articles/Core/widgets/custom_error.dart';
+import 'package:articles/Core/widgets/custom_loading.dart';
+import 'package:articles/Features/home/presentation/manager/category_article_cubit/category_articles_cubit.dart';
+import 'package:articles/Features/home/presentation/widgets/article_item.dart';
+import 'package:articles/Features/home/presentation/widgets/category_articles.dart';
+import 'package:articles/Features/home/presentation/widgets/custom_filter.dart';
+import 'package:articles/Features/home/presentation/widgets/search_text_field.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class CategoryViewBody extends StatelessWidget {
-  const CategoryViewBody({super.key});
+class CategoryViewBody extends StatefulWidget {
+  const CategoryViewBody({super.key, required this.category});
+
+  final String category;
+
+  @override
+  State<CategoryViewBody> createState() => _CategoryViewBodyState();
+}
+
+class _CategoryViewBodyState extends State<CategoryViewBody> {
+  @override
+  void initState() {
+    super.initState();
+    BlocProvider.of<CategoryArticlesCubit>(context)
+        .fetchCategoryArticle(category: widget.category);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,71 +46,25 @@ class CategoryViewBody extends StatelessWidget {
           SizedBox(
             height: 16,
           ),
-          Expanded(
-            child: ListView.builder(
-              itemCount: 10,
-              itemBuilder: (context, index) => Container(color: Colors.red, height: 200,),
-            ),
+          BlocBuilder<CategoryArticlesCubit, CategoryArticlesState>(
+            builder: (context, state) {
+              if (state is CategoryArticlesLoaded) {
+                return CategoryArticle(
+                  articles: state.articles,
+                );
+              } else if (state is CategoryArticlesFailure) {
+                return Expanded(
+                  child: CustomError(title: state.errMessage),
+                );
+              } else {
+                return Expanded(
+                  child: CustomLoading(),
+                );
+              }
+            },
           ),
         ],
       ),
-    );
-  }
-}
-
-class SearchTextField extends StatelessWidget {
-  const SearchTextField({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      child: TextField(
-        decoration: InputDecoration(
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
-            borderSide: BorderSide(color: AppColors.orange, width: 2.0),
-          ),
-          prefixIcon: Icon(
-            Icons.search,
-          ),
-          hintText: 'Search',
-          hintStyle: AppStyles.textNormal14,
-        ),
-      ),
-    );
-  }
-}
-
-class CustomFilter extends StatelessWidget {
-  const CustomFilter({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        SizedBox(
-          width: 8,
-        ),
-        Container(
-          height: 48,
-          width: 48,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(12),
-            color: AppColors.orange,
-          ),
-          child: Icon(
-            Icons.filter_list,
-            color: AppColors.white,
-          ),
-        ),
-      ],
     );
   }
 }
